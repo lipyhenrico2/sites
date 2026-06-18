@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica de Estética | Tratamentos Avançados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Montserrat',sans-serif; color:#333; overflow-x:hidden; }
+    a { text-decoration:none; }
+    img { display:block; }
+
+    :root {
+      --teal:   #B68578;
+      --teal-dk:#956D62;
+      --navy:   #0B1F48;
+      --navy-dk:#071535;
+      --gold:   #C9A84C;
+      --gold-lt:#E0C070;
+      --burgun: #7B2D2D;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────── */
+    header {
+      position:sticky; top:0; z-index:9999;
+      background:#fff; box-shadow:0 2px 14px rgba(0,0,0,.09);
+    }
+    .hdr-inner {
+      max-width:1400px; margin:0 auto; padding:0 36px; height:110px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .hdr-logo img { height:72px; width:auto; }
+    nav { display:flex; align-items:center; gap:2px; }
+    nav a { font-size:13px; font-weight:500; color:#2a2a2a; padding:8px 13px; border-radius:4px; transition:color .2s; white-space:nowrap; }
+    nav a:hover { color:var(--teal); }
+    .btn-agende {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--teal); color:#fff; font-weight:700; font-size:12.5px;
+      letter-spacing:.07em; padding:14px 24px; border-radius:6px; white-space:nowrap; transition:background .2s;
+    }
+    .btn-agende:hover { background:var(--teal-dk); }
+    .btn-agende svg { width:15px; height:15px; }
+
+    
+    /* ── HERO CAROUSEL ──────────────────────────────────── */
+    .hc { position:relative; width:100%; height:600px; overflow:hidden; background:#071535; }
+    .hc-track {
+      display:flex; height:100%;
+      transition:transform .9s cubic-bezier(.4,0,.2,1);
+      will-change:transform;
+    }
+    .hc-slide {
+      min-width:100%; height:100%; flex-shrink:0;
+      background:center/cover no-repeat;
+      position:relative;
+    }
+    .hc-slide::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,
+        rgba(7,21,53,.85) 0%,
+        rgba(11,31,72,.68) 50%,
+        rgba(7,21,53,.50) 100%);
+    }
+    .hc-overlay {
+      position:absolute; inset:0; z-index:2;
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      pointer-events:none;
+    }
+    .hc-content { max-width:820px; padding:60px 40px; pointer-events:auto; }
+    .hc-kicker {
+      display:inline-block; background:rgba(201,168,76,.22); color:#e0c070;
+      font-size:11.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+      padding:7px 22px; border-radius:20px; border:1px solid rgba(201,168,76,.35);
+      margin-bottom:22px;
+      animation:hcFadeIn 1s ease both;
+    }
+    .hc-nome {
+      font-size:clamp(30px,4.5vw,60px); font-weight:800; color:#fff;
+      line-height:1.1; margin-bottom:16px; letter-spacing:-1px;
+      animation:hcFadeIn 1s .15s ease both;
+    }
+    .hc-tagline {
+      font-size:clamp(14px,1.5vw,18px); color:rgba(255,255,255,.88);
+      line-height:1.65; margin-bottom:38px;
+      max-width:560px; margin-left:auto; margin-right:auto;
+      animation:hcFadeIn 1s .3s ease both;
+    }
+    .hc-btns {
+      display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+      animation:hcFadeIn 1s .45s ease both;
+    }
+    .hc-btn-p {
+      background:var(--teal); color:#fff; font-weight:700; font-size:14px;
+      padding:16px 36px; border-radius:50px; letter-spacing:.05em;
+      box-shadow:0 8px 26px rgba(24,175,171,.5); transition:transform .2s,box-shadow .2s;
+    }
+    .hc-btn-p:hover { transform:translateY(-3px); box-shadow:0 14px 36px rgba(24,175,171,.6); }
+    .hc-btn-s {
+      background:rgba(255,255,255,.12); color:#fff; font-weight:600; font-size:14px;
+      padding:16px 36px; border-radius:50px; border:1.5px solid rgba(255,255,255,.4);
+      transition:background .2s;
+    }
+    .hc-btn-s:hover { background:rgba(255,255,255,.22); }
+    /* Dots */
+    .hc-dots {
+      position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
+      z-index:3; display:flex; gap:8px; align-items:center;
+    }
+    .hc-dot {
+      width:8px; height:8px; border-radius:50%;
+      background:rgba(255,255,255,.4); cursor:pointer;
+      transition:all .35s cubic-bezier(.4,0,.2,1); border:none; padding:0;
+    }
+    .hc-dot.on { background:#fff; width:26px; border-radius:4px; }
+    /* Setas */
+    .hc-arr {
+      position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+      width:44px; height:44px; border-radius:50%;
+      background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3);
+      color:#fff; font-size:18px; cursor:pointer; display:flex;
+      align-items:center; justify-content:center;
+      transition:background .2s; backdrop-filter:blur(4px);
+    }
+    .hc-arr:hover { background:rgba(255,255,255,.28); }
+    .hc-arr.prev { left:20px; }
+    .hc-arr.next { right:20px; }
+    @keyframes hcFadeIn {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── TICKER ─────────────────────────────────────────── */
+    .ticker-wrap {
+      background:#fff; border-top:3px solid var(--teal); border-bottom:3px solid var(--teal);
+      padding:14px 0; overflow:hidden; width:100%;
+    }
+    .ticker-track {
+      display:flex; width:max-content; flex-wrap:nowrap;
+      animation:ticker 32s linear infinite; will-change:transform;
+    }
+    .ticker-track:hover { animation-play-state:paused; }
+    .ticker-item {
+      display:inline-flex; align-items:center; gap:10px; flex-shrink:0;
+      font-size:13px; font-weight:700; letter-spacing:.05em; color:var(--navy); padding:0 28px; white-space:nowrap;
+    }
+    .ticker-item .dot { color:var(--teal); font-size:18px; line-height:1; }
+    @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ── STATS BAR ──────────────────────────────────────── */
+    .stats-bar { background:#fff; padding:28px 0; border-bottom:1px solid #eee; }
+    .stats-inner {
+      max-width:1200px; margin:0 auto; padding:0 32px;
+      display:flex; align-items:center; justify-content:space-around; flex-wrap:wrap; gap:16px;
+    }
+    .stat-item { display:flex; align-items:center; gap:14px; flex:1; min-width:180px; }
+    .stat-icon img { width:48px; height:48px; object-fit:contain; }
+    .stat-num { font-size:17px; font-weight:800; color:var(--navy); line-height:1; }
+    .stat-lbl { font-size:11.5px; color:#666; margin-top:3px; line-height:1.3; }
+    .stat-div { width:1px; height:52px; background:#e0e0e0; }
+    .stat-note { font-size:10px; color:#aaa; max-width:1200px; margin:12px auto 0; padding:0 32px; text-align:center; display:block; }
+
+    /* ── SHARED ─────────────────────────────────────────── */
+    .sec-inner { max-width:1200px; margin:0 auto; padding:0 32px; }
+    .sec-title { text-align:center; margin-bottom:44px; }
+    .sec-title h2 { font-size:clamp(22px,3vw,34px); font-weight:800; color:var(--navy); line-height:1.2; }
+    .sec-title .gold-line { display:block; width:56px; height:3px; background:var(--gold); margin:12px auto 0; border-radius:2px; }
+    .sec-title-white { text-align:center; margin-bottom:40px; }
+    .sec-title-white h2 { font-size:clamp(22px,3vw,34px); font-weight:800; color:#fff; }
+    .sec-title-white .wline { display:block; width:56px; height:3px; background:rgba(255,255,255,.5); margin:12px auto 0; border-radius:2px; }
+    .btn-teal {
+      display:inline-flex; align-items:center; gap:8px; background:var(--teal); color:#fff;
+      font-weight:700; font-size:13px; letter-spacing:.06em; padding:14px 28px; border-radius:6px; transition:background .2s;
+    }
+    .btn-teal:hover { background:var(--teal-dk); }
+
+    /* ── TECNOLOGIAS ────────────────────────────────────── */
+    .tecnologias { background:var(--teal); padding:64px 0; }
+    .tec-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .tec-card {
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); border-radius:12px;
+      padding:24px 16px; text-align:center; transition:background .25s,transform .25s; cursor:pointer;
+    }
+    .tec-card:hover { background:rgba(255,255,255,.22); transform:translateY(-3px); }
+    .tec-card h3 { font-size:14px; font-weight:800; color:#fff; margin-bottom:8px; }
+    .tec-card p  { font-size:11.5px; color:rgba(255,255,255,.85); line-height:1.55; }
+    .tec-btn {
+      display:inline-block; margin-top:14px; font-size:11px; font-weight:700; color:#fff;
+      border:1px solid rgba(255,255,255,.6); border-radius:4px; padding:6px 16px; letter-spacing:.06em; transition:background .2s;
+    }
+    .tec-btn:hover { background:rgba(255,255,255,.2); }
+
+    /* ── NOVIDADE FOTONA 4D ─────────────────────────────── */
+    .novidade { background:#fff; padding:72px 0; }
+    .nov-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+    .nov-img { width:100%; aspect-ratio:4/3; border-radius:16px; overflow:hidden; background:var(--navy); }
+    .nov-img img { width:100%; height:100%; object-fit:cover; }
+    .nov-tag { display:inline-block; background:var(--teal); color:#fff; font-size:11px; font-weight:700; letter-spacing:.1em; padding:5px 14px; border-radius:20px; margin-bottom:16px; }
+    .nov-title { font-size:clamp(20px,2.5vw,32px); font-weight:800; color:var(--navy); line-height:1.2; margin-bottom:16px; }
+    .nov-text  { font-size:13.5px; color:#555; line-height:1.7; margin-bottom:24px; }
+    .nov-feats { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+    .nov-feats li { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--navy); font-weight:600; }
+    .nov-feats li::before {
+      content:'✓'; background:var(--teal); color:#fff; width:22px; height:22px; min-width:22px;
+      border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px;
+    }
+
+    /* ── AVALIAÇÃO GRATUITA ─────────────────────────────── */
+    .avaliacao { background:rgb(251,251,251); padding:72px 0; }
+    .aval-header { text-align:center; margin-bottom:40px; }
+    .aval-header h2 { font-size:clamp(18px,2.4vw,28px); font-weight:800; color:var(--navy); line-height:1.25; margin-bottom:8px; }
+    .aval-header p  { font-size:12.5px; color:#777; }
+    .aval-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .aval-card {
+      background:#fff; border-radius:12px; border:2px solid #e8e8e8;
+      padding:28px 20px; text-align:center; transition:border-color .2s,transform .2s; cursor:pointer;
+    }
+    .aval-card:hover { border-color:var(--teal); transform:translateY(-3px); }
+    .aval-title { font-size:15px; font-weight:800; color:var(--navy); margin-bottom:10px; }
+    .aval-desc  { font-size:12px; color:#666; line-height:1.55; margin-bottom:16px; }
+    .aval-badge { display:inline-block; background:var(--teal); color:#fff; font-size:11px; font-weight:700; padding:6px 16px; border-radius:20px; }
+
+    /* ── VOUCHERS (DIA NAMORADOS) ───────────────────────── */
+    .vouchers { background:#fff; padding:64px 0; }
+    .vouchers-sub { text-align:center; font-size:13px; color:#666; margin-top:-28px; margin-bottom:36px; }
+    .vouchers-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .voucher-card {
+      border:2px solid var(--gold); border-radius:16px; overflow:hidden;
+      text-align:center; padding:28px 20px; background:linear-gradient(145deg,#fdfaf4,#fff8e8);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .voucher-card:hover { transform:translateY(-4px); box-shadow:0 8px 28px rgba(201,168,76,.25); }
+    .voucher-card img { width:120px; height:120px; object-fit:contain; margin:0 auto 16px; }
+    .voucher-val { font-size:26px; font-weight:800; color:var(--gold); }
+    .voucher-desc { font-size:12px; color:#666; margin:8px 0 16px; line-height:1.5; }
+    .voucher-price { font-size:18px; font-weight:700; color:var(--navy); }
+    .btn-gold {
+      display:inline-block; margin-top:16px; padding:10px 24px;
+      background:var(--gold); color:#fff; font-size:12px; font-weight:700;
+      letter-spacing:.06em; border-radius:6px; transition:opacity .2s;
+    }
+    .btn-gold:hover { opacity:.88; }
+
+    /* ── OFERTAS EXCLUSIVAS ─────────────────────────────── */
+    .ofertas { background:#f8f9fc; padding:72px 0; }
+    .ofertas-slider {
+      display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory;
+      padding:8px 4px 20px; scrollbar-width:thin; scrollbar-color:var(--teal) #ddd;
+      -webkit-overflow-scrolling:touch;
+    }
+    .ofertas-slider::-webkit-scrollbar { height:5px; }
+    .ofertas-slider::-webkit-scrollbar-thumb { background:var(--teal); border-radius:3px; }
+    .oferta-card {
+      min-width:260px; max-width:280px; flex-shrink:0; scroll-snap-align:start;
+      background:var(--navy); border-radius:16px; overflow:hidden;
+      border:1px solid rgba(201,168,76,.3); transition:transform .25s; cursor:pointer;
+    }
+    .oferta-card:hover { transform:translateY(-4px); }
+    .oferta-img { width:100%; aspect-ratio:3/2; overflow:hidden; background:var(--navy-dk); }
+    .oferta-img img { width:100%; height:100%; object-fit:cover; }
+    .oferta-body { padding:18px; }
+    .oferta-nome { font-size:14px; font-weight:800; color:var(--gold-lt); margin-bottom:6px; line-height:1.2; }
+    .oferta-desc { font-size:11px; color:rgba(255,255,255,.65); line-height:1.5; margin-bottom:10px; }
+    .oferta-de   { font-size:11px; color:rgba(255,255,255,.35); text-decoration:line-through; }
+    .oferta-por  { font-size:11px; color:rgba(255,255,255,.55); font-weight:600; margin-top:4px; }
+    .oferta-price{ font-size:22px; font-weight:800; color:#fff; }
+    .oferta-note { font-size:10px; color:rgba(255,255,255,.3); margin-top:4px; }
+    .btn-oferta  {
+      display:block; margin-top:12px; background:var(--teal); color:#fff;
+      font-size:11.5px; font-weight:700; letter-spacing:.06em; padding:10px 0;
+      border-radius:6px; text-align:center; transition:background .2s;
+    }
+    .btn-oferta:hover { background:var(--teal-dk); }
+    .slider-nav { display:flex; justify-content:center; gap:12px; margin-top:16px; }
+    .slider-nav button {
+      width:40px; height:40px; border-radius:50%; background:var(--teal); border:none;
+      color:#fff; font-size:18px; cursor:pointer; transition:background .2s;
+    }
+    .slider-nav button:hover { background:var(--teal-dk); }
+
+    /* ── MELHOR PREÇO ───────────────────────────────────── */
+    .melhor-preco { background:var(--teal); padding:60px 0; }
+    .mp-inner { max-width:960px; margin:0 auto; padding:0 32px; text-align:center; }
+    .mp-inner h2 { font-size:clamp(22px,3vw,36px); font-weight:800; color:#fff; margin-bottom:8px; }
+    .mp-sub { font-size:15px; color:rgba(255,255,255,.9); margin-bottom:28px; font-weight:500; }
+    .mp-badges { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:32px; }
+    .mp-badge {
+      display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.3); border-radius:24px; padding:8px 20px;
+      font-size:13px; font-weight:600; color:#fff;
+    }
+    .btn-white {
+      display:inline-block; background:#fff; color:var(--teal);
+      font-weight:800; font-size:13.5px; letter-spacing:.06em; padding:14px 36px; border-radius:6px; transition:opacity .2s;
+    }
+    .btn-white:hover { opacity:.9; }
+
+    /* ── SOBRE NÓS ──────────────────────────────────────── */
+    .sobre { background:rgb(250,250,250); padding:72px 0; }
+    .sobre-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+    .sobre-img {
+      width:100%; border-radius:20px; overflow:hidden;
+      background:var(--light); aspect-ratio:4/3;
+      box-shadow:0 12px 40px rgba(11,31,72,.12);
+      position:relative;
+    }
+    .sobre-img img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .5s ease;
+    }
+    .sobre-img:hover img { transform:scale(1.04); }
+    .sobre-tag { display:inline-block; background:var(--teal); color:#fff; font-size:11px; font-weight:700; letter-spacing:.1em; padding:5px 14px; border-radius:20px; margin-bottom:16px; }
+    .sobre-title { font-size:clamp(20px,2.5vw,30px); font-weight:800; color:var(--navy); line-height:1.2; margin-bottom:16px; }
+    .sobre-text  { font-size:13.5px; color:#555; line-height:1.8; margin-bottom:14px; }
+    .sobre-medico { font-size:13px; color:var(--teal); font-weight:700; margin-top:8px; }
+
+    /* ── GALERIA CAROUSEL ───────────────────────────────── */
+    .galeria { background:#fff; padding:72px 0; }
+    .galeria-track-wrap { overflow:hidden; width:100%; }
+    .galeria-track {
+      display:flex; gap:16px; width:max-content;
+      animation:galSlide 30s linear infinite;
+    }
+    .galeria-track:hover { animation-play-state:paused; }
+    @keyframes galSlide { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .gal-item {
+      min-width:280px; height:220px; border-radius:14px; overflow:hidden;
+      flex-shrink:0; cursor:pointer; transition:transform .2s;
+    }
+    .gal-item:hover { transform:scale(1.03); }
+    .gal-item img { width:100%; height:100%; object-fit:cover; }
+
+    /* ── GOOGLE STARS ───────────────────────────────────── */
+    .google-stars { background:rgb(251,251,251); padding:64px 0; text-align:center; }
+    .stars-row { display:flex; justify-content:center; gap:8px; margin-bottom:16px; }
+    .star { font-size:40px; color:#F5A623; }
+    .stars-title { font-size:clamp(22px,3vw,34px); font-weight:800; color:var(--navy); margin-bottom:12px; }
+    .stars-sub   { font-size:14px; color:#666; line-height:1.6; max-width:600px; margin:0 auto 28px; }
+    .stars-badges { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; }
+    .stars-badge {
+      display:inline-flex; align-items:center; gap:8px; background:#fff;
+      border:1.5px solid #e0e0e0; border-radius:24px; padding:10px 22px;
+      font-size:13px; font-weight:600; color:var(--navy); box-shadow:0 2px 8px rgba(0,0,0,.06);
+    }
+
+    /* ── PROTOCOLOS ─────────────────────────────────────── */
+    .protocolos { background:var(--teal); padding:72px 0; }
+    .prot-header { text-align:center; margin-bottom:40px; }
+    .prot-header h2 { font-size:clamp(22px,3vw,34px); font-weight:800; color:#fff; }
+    .prot-header p  { font-size:14px; color:rgba(255,255,255,.85); margin-top:8px; }
+    .prot-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .prot-card { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); border-radius:12px; padding:28px 20px; text-align:center; }
+    .prot-icon { font-size:32px; margin-bottom:14px; }
+    .prot-card h3 { font-size:15px; font-weight:800; color:#fff; margin-bottom:10px; }
+    .prot-card p  { font-size:12px; color:rgba(255,255,255,.8); line-height:1.6; }
+
+    /* ── UNIDADES (layout 2 colunas: texto + cards) ─────── */
+    .unidades { background:#fff; padding:80px 0; }
+    .unid-layout {
+      display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.6fr);
+      gap:48px; align-items:center;
+    }
+    .unid-left h2 {
+      font-size:clamp(28px,3.4vw,42px); font-weight:800; color:var(--teal);
+      line-height:1.15; margin-bottom:20px;
+    }
+    .unid-left p { font-size:15px; color:#555; line-height:1.6; margin-bottom:28px; max-width:340px; }
+    .btn-ver-todas {
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--teal); color:#fff; font-weight:700; font-size:13px;
+      letter-spacing:.06em; text-transform:uppercase; text-decoration:underline; text-underline-offset:3px;
+      padding:15px 30px; border-radius:8px;
+      box-shadow:0 8px 22px rgba(24,175,171,.32); transition:transform .2s, box-shadow .2s;
+    }
+    .btn-ver-todas:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(24,175,171,.42); }
+
+    .unid-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; }
+    .unid-card {
+      background:#fff; border:1px solid #eef0f3; border-radius:24px; overflow:hidden;
+      box-shadow:0 10px 36px rgba(11,31,72,.10);
+      transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+    }
+    .unid-card:hover { transform:translateY(-6px); box-shadow:0 20px 52px rgba(24,175,171,.20); }
+    .unid-map { width:100%; height:230px; overflow:hidden; position:relative; padding:14px 14px 0; }
+    .unid-map img { width:100%; height:100%; object-fit:cover; border-radius:16px; transition:transform .5s ease; }
+    .unid-card:hover .unid-map img { transform:scale(1.05); }
+    .unid-body { padding:22px 24px 26px; }
+    .unid-head { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+    .unid-logo {
+      width:54px; height:54px; border-radius:50%; flex-shrink:0;
+      background:#eef9f8; border:1px solid #d6efee;
+      display:flex; align-items:center; justify-content:center; overflow:hidden;
+    }
+    .unid-logo img { width:42px; height:42px; object-fit:contain; }
+    .unid-head h3 { font-size:18px; font-weight:800; color:var(--teal); line-height:1.2; }
+    .unid-info { display:flex; flex-direction:column; gap:14px; }
+    .unid-row { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:var(--navy); font-weight:600; }
+    .unid-row .ic {
+      width:30px; height:30px; border-radius:8px; flex-shrink:0; margin-top:-2px;
+      background:#eef9f8; color:var(--teal);
+      display:inline-flex; align-items:center; justify-content:center; font-size:15px;
+    }
+    .unid-divider { height:1px; background:#eef0f3; margin:4px 0; }
+
+    /* ── CTA AGENDAR ────────────────────────────────────── */
+    .cta-agendar {
+      position:relative; overflow:hidden;
+      background:linear-gradient(135deg,#B68578 0%,#956d62 100%); padding:88px 0;
+    }
+    .cta-agendar::before, .cta-agendar::after {
+      content:''; position:absolute; border-radius:50%;
+      background:rgba(255,255,255,.08);
+    }
+    .cta-agendar::before { width:340px; height:340px; top:-140px; left:-90px; }
+    .cta-agendar::after  { width:260px; height:260px; bottom:-120px; right:-60px; background:rgba(255,255,255,.06); }
+    .cta-inner { position:relative; z-index:1; max-width:760px; margin:0 auto; padding:0 32px; text-align:center; }
+    .cta-badge {
+      display:inline-block; background:rgba(255,255,255,.18); color:#fff;
+      font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+      padding:7px 18px; border-radius:20px; margin-bottom:18px;
+    }
+    .cta-inner h2 { font-size:clamp(24px,3.2vw,40px); font-weight:800; color:#fff; line-height:1.18; margin-bottom:14px; }
+    .cta-inner p  { font-size:15px; color:rgba(255,255,255,.92); margin-bottom:36px; line-height:1.65; }
+    .btn-cta {
+      display:inline-flex; align-items:center; gap:10px; background:#fff; color:var(--teal);
+      font-weight:800; font-size:14.5px; letter-spacing:.05em; padding:18px 44px; border-radius:50px;
+      box-shadow:0 10px 30px rgba(0,0,0,.18); transition:transform .2s, box-shadow .2s;
+    }
+    .btn-cta:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(0,0,0,.25); }
+
+    /* ── BLOG ───────────────────────────────────────────── */
+    .blog { background:#fff; padding:80px 0; }
+    .blog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
+    .blog-card {
+      background:#fff; border-radius:14px; overflow:hidden;
+      box-shadow:0 8px 30px rgba(11,31,72,.10); text-decoration:none; color:inherit;
+      transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s; display:flex; flex-direction:column;
+    }
+    .blog-card:hover { transform:translateY(-6px); box-shadow:0 20px 48px rgba(11,31,72,.16); }
+    .blog-thumb { width:100%; height:300px; overflow:hidden; position:relative; }
+    .blog-thumb img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+    .blog-card:hover .blog-thumb img { transform:scale(1.05); }
+    .blog-thumb::after {
+      content:''; position:absolute; left:0; right:0; bottom:0; height:45%;
+      background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.85) 80%, #fff 100%);
+    }
+    .blog-body { padding:0 24px 24px; flex:1; display:flex; flex-direction:column; }
+    .blog-meta-top {
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:14px;
+    }
+    .blog-cat {
+      display:inline-block; height:22px; min-width:150px;
+      background:linear-gradient(135deg,var(--teal),var(--teal-dk));
+      border-radius:12px; font-size:0; /* barra estilo original */
+    }
+    .blog-date-box { text-align:center; flex-shrink:0; }
+    .blog-date-box .cal { font-size:15px; color:var(--teal); }
+    .blog-date-box .d  { font-size:14px; font-weight:800; color:var(--navy); }
+    .blog-body h3 { font-size:16px; font-weight:800; color:var(--teal); line-height:1.35; margin-bottom:18px; flex:1; }
+    .blog-author {
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding-top:14px; border-top:1px solid #eef0f3;
+    }
+    .blog-author .who, .blog-author .when { display:flex; align-items:center; gap:8px; }
+    .blog-author .ic { color:var(--teal); font-size:15px; display:inline-flex; }
+    .blog-author .who span { font-size:13px; font-weight:800; color:var(--navy); }
+    .blog-author .when span { font-size:13px; font-weight:600; color:#888; }
+    .blog-btn {
+      display:block; margin-top:18px; text-align:center;
+      border:1.5px solid var(--teal); color:var(--teal);
+      font-size:12px; font-weight:700; letter-spacing:.05em; padding:11px 0; border-radius:8px;
+      transition:background .2s, color .2s;
+    }
+    .blog-card:hover .blog-btn { background:var(--teal); color:#fff; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background:linear-gradient(180deg,#0a1c40 0%,#071535 100%);
+      color:rgba(255,255,255,.7); padding:72px 0 0; position:relative;
+    }
+    footer::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg,var(--teal),var(--gold),var(--teal));
+    }
+    .footer-grid {
+      max-width:1200px; margin:0 auto; padding:0 32px 52px;
+      display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.2fr); gap:44px;
+    }
+    .foot-logo img { height:62px; filter:brightness(0) invert(1); margin-bottom:20px; }
+    .foot-desc { font-size:12.5px; line-height:1.9; color:rgba(255,255,255,.55); margin-bottom:24px; }
+    .foot-social { display:flex; gap:11px; }
+    .foot-social a {
+      width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,.08);
+      color:#fff; font-size:15px; display:inline-flex; align-items:center; justify-content:center;
+      transition:background .25s, transform .25s;
+    }
+    .foot-social a:hover { background:var(--teal); transform:translateY(-3px); }
+    .foot-col h4 {
+      font-size:12px; font-weight:700; color:var(--gold-lt); letter-spacing:.1em;
+      text-transform:uppercase; margin-bottom:20px; position:relative; padding-bottom:10px;
+    }
+    .foot-col h4::after {
+      content:''; position:absolute; bottom:0; left:0; width:28px; height:2px; background:var(--teal); border-radius:2px;
+    }
+    .foot-col ul { list-style:none; display:flex; flex-direction:column; gap:12px; }
+    .foot-col ul li a {
+      font-size:12.5px; color:rgba(255,255,255,.6); transition:color .2s, padding-left .2s;
+      display:inline-block;
+    }
+    .foot-col ul li a:hover { color:var(--teal); padding-left:5px; }
+    .foot-bar { border-top:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.18); }
+    .foot-bottom {
+      max-width:1200px; margin:0 auto; padding:20px 32px;
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    }
+    .foot-bottom p { font-size:11.5px; color:rgba(255,255,255,.35); }
+
+    /* ── WHATSAPP FLOAT ─────────────────────────────────── */
+    .wa-btn {
+      position:fixed; bottom:24px; right:24px; z-index:9999; width:56px; height:56px;
+      border-radius:50%; background:#25D366; box-shadow:0 4px 20px rgba(37,211,102,.5);
+      display:flex; align-items:center; justify-content:center; transition:transform .2s;
+    }
+    .wa-btn:hover { transform:scale(1.1); }
+    .wa-btn svg { width:30px; height:30px; fill:#fff; }
+
+    /* ── SCROLL REVEAL ──────────────────────────────────── */
+    .reveal { opacity:0; transform:translateY(26px); transition:opacity .55s ease,transform .55s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media(max-width:1100px){
+      .tec-grid { grid-template-columns:repeat(2,1fr); }
+      .nov-grid,.sobre-grid { grid-template-columns:1fr; }
+      .unid-layout { grid-template-columns:1fr; gap:36px; }
+      .unid-left { text-align:center; }
+      .unid-left p { margin-left:auto; margin-right:auto; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
+    }
+    @media(max-width:768px){
+      /* Header — evita o botão estourar para fora da tela */
+      .hdr-inner { height:64px; padding:0 16px; gap:10px; }
+      nav { display:none; }
+      .hdr-logo img { height:46px; }
+      .hdr-logo svg { height:40px; width:auto; }
+      .btn-agende { padding:10px 14px; font-size:11px; letter-spacing:.04em; gap:6px; }
+      .btn-agende svg { width:13px; height:13px; }
+
+      /* Hero carousel — esconde setas (sobrepunham o texto) e reduz padding */
+      .hc { height:520px; }
+      .hc-content { padding:40px 22px; max-width:100%; }
+      .hc-arr { display:none; }
+      .hc-tagline { max-width:100%; }
+
+      /* Grids — tudo em 1 coluna para não cortar */
+      .hero-inner { grid-template-columns:1fr; padding:48px 20px; text-align:center; }
+      .tec-grid,.prot-grid { grid-template-columns:1fr; }
+      .aval-grid,.vouchers-grid { grid-template-columns:1fr; }
+      .unid-grid,.blog-grid { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr; gap:28px; }
+
+      /* Respiro lateral consistente nas seções */
+      .sec-inner { padding:0 20px; }
+      .stats-inner { padding:0 20px; }
+      .stat-item { min-width:140px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr-inner">
+    <a href="#" class="hdr-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" height="58" viewBox="0 0 250 58" style="display:block;flex-shrink:0"><polygon points="29,3 51,29 29,55 7,29" fill="#B68578" opacity="0.18"/><polygon points="29,9 47,29 29,49 11,29" fill="none" stroke="#B68578" stroke-width="1.8"/><text x="29" y="34" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="800" font-size="13" fill="#B68578">E</text><line x1="63" y1="13" x2="63" y2="45" stroke="#999" stroke-width="1" opacity="0.35"/><text x="73" y="25" font-family="Montserrat,sans-serif" font-weight="400" font-size="8.5" letter-spacing="3.5" fill="#999">CLÍNICA</text><text x="73" y="42" font-family="Montserrat,sans-serif" font-weight="800" font-size="15" letter-spacing="0.3" fill="#1a1a1a">ESTÉTICA EM BH</text></svg>
+    </a>
+    <nav>
+      <a href="#">Tratamentos Faciais</a>
+      <a href="#">Tratamentos Corporais</a>
+      <a href="#">Nossas Unidades</a>
+      <a href="#">Blog</a>
+      <a href="#">Trabalhe Conosco</a>
+    </nav>
+    <a href="#agendar" class="btn-agende">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      AGENDE AGORA
+    </a>
+  </div>
+</header>
+
+<!-- HERO CAROUSEL -->
+<section class="hc" id="heroCarousel">
+  <div class="hc-track" id="hcTrack">
+    <div class="hc-slide" style="background-image:url('https://clinicaesteticabh.com/wp-content/uploads/2024/02/intradermoterapia-bh-416x277.jpg.webp')"></div>
+    <div class="hc-slide" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920&h=800&fit=crop&auto=format&q=90')"></div>
+    <div class="hc-slide" style="background-image:url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=1920&h=800&fit=crop&auto=format&q=90')"></div>
+    <div class="hc-slide" style="background-image:url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1920&h=800&fit=crop&auto=format&q=90')"></div>
+    <div class="hc-slide" style="background-image:url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1920&h=800&fit=crop&auto=format&q=90')"></div>
+  </div>
+  <div class="hc-overlay">
+    <div class="hc-content">
+      <span class="hc-kicker">&#10024; Est&#233;tica Avan&#231;ada</span>
+      <h1 class="hc-nome">Clínica Estética em BH</h1>
+      <p class="hc-tagline">Tecnologia de ponta, resultados naturais e atendimento especializado.<br>Agende sua avalia&#231;&#227;o gratuita hoje mesmo.</p>
+      <div class="hc-btns">
+        <a href="#agendar" class="hc-btn-p">AGENDAR AVALIA&#199;&#195;O GRATUITA</a>
+        <a href="#ofertas" class="hc-btn-s">Ver Ofertas</a>
+      </div>
+    </div>
+  </div>
+  <div class="hc-dots" id="hcDots"></div>
+  <button class="hc-arr prev" onclick="hcMove(-1)">&#8592;</button>
+  <button class="hc-arr next" onclick="hcMove(1)">&#8594;</button>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="dot">★</span> Clínica Estética em BH</span>
+    <span class="ticker-item"><span class="dot">★</span> Tecnologia de Ponta em Estética Avançada</span>
+    <span class="ticker-item"><span class="dot">★</span> Resultados na Primeira Sessão</span>
+    <span class="ticker-item"><span class="dot">★</span> Melhores Equipamentos Médicos</span>
+    <span class="ticker-item"><span class="dot">★</span> Atendimento de Domingo a Domingo</span>
+    <span class="ticker-item"><span class="dot">★</span> +100.000 Clientes Satisfeitos</span>
+    <span class="ticker-item"><span class="dot">★</span> O Melhor Preço do Brasil</span>
+    <span class="ticker-item"><span class="dot">★</span> Resultados Garantidos</span>
+    <!-- cópia para loop contínuo -->
+    <span class="ticker-item"><span class="dot">★</span> Clínica Estética em BH</span>
+    <span class="ticker-item"><span class="dot">★</span> Tecnologia de Ponta em Estética Avançada</span>
+    <span class="ticker-item"><span class="dot">★</span> Resultados na Primeira Sessão</span>
+    <span class="ticker-item"><span class="dot">★</span> Melhores Equipamentos Médicos</span>
+    <span class="ticker-item"><span class="dot">★</span> Atendimento de Domingo a Domingo</span>
+    <span class="ticker-item"><span class="dot">★</span> +100.000 Clientes Satisfeitos</span>
+    <span class="ticker-item"><span class="dot">★</span> O Melhor Preço do Brasil</span>
+    <span class="ticker-item"><span class="dot">★</span> Resultados Garantidos</span>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#B68578" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div>
+        <div class="stat-num">+ de 100.000</div>
+        <div class="stat-lbl">clientes satisfeitos</div>
+      </div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#B68578" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      <div>
+        <div class="stat-num">O melhor preço do Brasil</div>
+        <div class="stat-lbl">Encontrou menor? Nós cobrimos!</div>
+      </div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#B68578" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      <div>
+        <div class="stat-num">Resultados garantidos</div>
+        <div class="stat-lbl">ou seu dinheiro de volta*</div>
+      </div>
+    </div>
+  </div>
+  <span class="stat-note">*O valor será reembolsado somente após a conclusão integral do protocolo, incluindo todas as sessões indicadas pelo especialista.</span>
+</section>
+
+<!-- TECNOLOGIAS -->
+<section class="tecnologias">
+  <div class="sec-inner">
+    <div class="sec-title-white"><h2>Nossas Tecnologias</h2><span class="wline"></span></div>
+    <div class="tec-grid">
+      <div class="tec-card">
+        <h3>Laser Fotona</h3>
+        <p>Tecnologia avançada para rejuvenescimento, clareamento da pele, estímulo intenso de colágeno e efeito lifting imediato. ✨</p>
+        <a href="#" class="tec-btn">Clique aqui</a>
+      </div>
+      <div class="tec-card">
+        <h3>Ultraformer MPT</h3>
+        <p>O Ultraformer MPT firma, levanta e renova a pele com ultrassom de alta precisão, estimulando colágeno e elastina em profundidade.</p>
+        <a href="#" class="tec-btn">Clique aqui</a>
+      </div>
+      <div class="tec-card">
+        <h3>CM Slim</h3>
+        <p>Tecnologia que estimula musculatura com emissão de campo magnético de alta intensidade — equivalente a 20.000 abdominais em 30 minutos.</p>
+        <a href="#" class="tec-btn">Clique aqui</a>
+      </div>
+      <div class="tec-card">
+        <h3>Scizer</h3>
+        <p>Ultrassom focalizado de alta intensidade para eliminação de gordura localizada e tratamento de flacidez sem cirurgia.</p>
+        <a href="#" class="tec-btn">Clique aqui</a>
+      </div>
+      <div class="tec-card">
+        <h3>Laser Lavieen</h3>
+        <p>Laser fracionado de última geração para renovação de pele, melhora de manchas, poros e textura com mínimo desconforto.</p>
+        <a href="#" class="tec-btn">Clique aqui</a>
+      </div>
+      <div class="tec-card">
+        <h3>Endolaser</h3>
+        <p>Procedimento minimamente invasivo que combina laser e lipossução para eliminar gordura localizada com maior precisão.</p>
+        <a href="#" class="tec-btn">Clique aqui</a>
+      </div>
+      <div class="tec-card">
+        <h3>Liftera</h3>
+        <p>HIFU de alta intensidade para lifting e firmeza da pele, estimulando colágeno e elastina para resultados naturais e duradouros.</p>
+        <a href="#" class="tec-btn">Clique aqui</a>
+      </div>
+      <div class="tec-card">
+        <h3>Laser CO₂</h3>
+        <p>Laser fracionado de CO₂ para renovação profunda da pele, tratamento de cicatrizes, manchas e rejuvenescimento completo.</p>
+        <a href="#" class="tec-btn">Clique aqui</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOVIDADE FOTONA 4D -->
+<section class="novidade">
+  <div class="sec-inner">
+    <div class="nov-grid reveal">
+      <div class="nov-img">
+        <img src="https://clinicaesteticabh.com/wp-content/uploads/2024/02/aplicacao-de-botox-bh-416x277.jpg.webp" alt="Tratamento estético avançado" />
+      </div>
+      <div>
+        <span class="nov-tag">NOVIDADE Clínica Estética em BH</span>
+        <h2 class="nov-title">O Laser Mais Avançado do Mundo Agora na Clínica Estética em BH</h2>
+        <p class="nov-text">Conheça o Fotona 4D, a tecnologia europeia que promove rejuvenescimento profundo, estimula colágeno e melhora a qualidade da pele sem cirurgia e sem tempo de recuperação.</p>
+        <ul class="nov-feats">
+          <li>Lifting natural sem cortes</li>
+          <li>Estímulo intenso de colágeno</li>
+          <li>Sem tempo de recuperação</li>
+          <li>Resultado progressivo e duradouro</li>
+        </ul>
+        <a href="#agendar" class="btn-teal">QUERO CONHECER</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVALIAÇÃO GRATUITA -->
+<section class="avaliacao">
+  <div class="sec-inner">
+    <div class="aval-header">
+      <h2>Agende JÁ sua avaliação e escolha sua degustação GRATUITA abaixo:</h2>
+      <p>Condição especial válida somente para novos clientes. Vagas limitadas. Reserve já.</p>
+    </div>
+    <div class="aval-grid">
+      <div class="aval-card reveal">
+        <div class="aval-title">1 Sessão de Laser Lavieen</div>
+        <div class="aval-desc">Laser avançado para renovação da pele, melhora de manchas, poros e textura, proporcionando mais viço, luminosidade e rejuvenescimento.</div>
+        <span class="aval-badge">GRATUITA</span>
+      </div>
+      <div class="aval-card reveal">
+        <div class="aval-title">1 Sessão de Ultraformer</div>
+        <div class="aval-desc">HIFU de última geração para lifting facial sem bisturi. Resultados visíveis desde a primeira sessão com efeito tensor imediato.</div>
+        <span class="aval-badge">GRATUITA</span>
+      </div>
+      <div class="aval-card reveal">
+        <div class="aval-title">1 Sessão de CM Slim</div>
+        <div class="aval-desc">Tonificação muscular avançada com campo magnético de alta intensidade. Ideal para definição corporal e fortalecimento.</div>
+        <span class="aval-badge">GRATUITA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- OFERTAS EXCLUSIVAS -->
+<section class="ofertas" id="ofertas">
+  <div class="sec-inner">
+    <div class="sec-title">
+      <h2>Ofertas Exclusivas Válidas Por Pouquíssimo Tempo</h2>
+      <span class="gold-line"></span>
+    </div>
+    <p style="text-align:center;font-size:13px;color:#777;margin-top:-28px;margin-bottom:28px;">As maiores tecnologias da estética com descontos incríveis e vagas limitadas.</p>
+    <div class="ofertas-slider" id="ofertasSlider">
+<div class="oferta-card reveal">
+          <div class="oferta-img"><img src="https://clinicaesteticabh.com/wp-content/uploads/2024/02/aplicacao-de-botox-bh-416x277.jpg.webp" alt="Aplicação de botox" /></div>
+          <div class="oferta-body">
+            <div class="oferta-nome">Aplicação de botox</div>
+            
+            <div class="oferta-cta">
+              <a href="#agendar" class="btn-oferta">AGENDAR SESSÃO</a>
+              <div class="oferta-price" style="font-size:13px;color:rgba(255,255,255,.6)">Consulte valores</div>
+            </div>
+          </div>
+        </div>
+<div class="oferta-card reveal">
+          <div class="oferta-img"><img src="https://clinicaesteticabh.com/wp-content/uploads/2024/02/bioestimulador-de-colageno-bh-416x277.jpg.webp" alt="Bioestimulador de colágeno" /></div>
+          <div class="oferta-body">
+            <div class="oferta-nome">Bioestimulador de colágeno</div>
+            
+            <div class="oferta-cta">
+              <a href="#agendar" class="btn-oferta">AGENDAR SESSÃO</a>
+              <div class="oferta-price" style="font-size:13px;color:rgba(255,255,255,.6)">Consulte valores</div>
+            </div>
+          </div>
+        </div>
+<div class="oferta-card reveal">
+          <div class="oferta-img"><img src="" alt="Fios de PDO" /></div>
+          <div class="oferta-body">
+            <div class="oferta-nome">Fios de PDO</div>
+            
+            <div class="oferta-cta">
+              <a href="#agendar" class="btn-oferta">AGENDAR SESSÃO</a>
+              <div class="oferta-price" style="font-size:13px;color:rgba(255,255,255,.6)">Consulte valores</div>
+            </div>
+          </div>
+        </div>
+<div class="oferta-card reveal">
+          <div class="oferta-img"><img src="" alt="Harmonização facial" /></div>
+          <div class="oferta-body">
+            <div class="oferta-nome">Harmonização facial</div>
+            
+            <div class="oferta-cta">
+              <a href="#agendar" class="btn-oferta">AGENDAR SESSÃO</a>
+              <div class="oferta-price" style="font-size:13px;color:rgba(255,255,255,.6)">Consulte valores</div>
+            </div>
+          </div>
+        </div>
+<div class="oferta-card reveal">
+          <div class="oferta-img"><img src="https://clinicaesteticabh.com/wp-content/uploads/2024/02/limpeza-de-pele-bh-416x277.jpg.webp" alt="Limpeza de pele" /></div>
+          <div class="oferta-body">
+            <div class="oferta-nome">Limpeza de pele</div>
+            
+            <div class="oferta-cta">
+              <a href="#agendar" class="btn-oferta">AGENDAR SESSÃO</a>
+              <div class="oferta-price" style="font-size:13px;color:rgba(255,255,255,.6)">Consulte valores</div>
+            </div>
+          </div>
+        </div>
+<div class="oferta-card reveal">
+          <div class="oferta-img"><img src="" alt="Peeling químico" /></div>
+          <div class="oferta-body">
+            <div class="oferta-nome">Peeling químico</div>
+            
+            <div class="oferta-cta">
+              <a href="#agendar" class="btn-oferta">AGENDAR SESSÃO</a>
+              <div class="oferta-price" style="font-size:13px;color:rgba(255,255,255,.6)">Consulte valores</div>
+            </div>
+          </div>
+        </div>
+<div class="oferta-card reveal">
+          <div class="oferta-img"><img src="https://clinicaesteticabh.com/wp-content/uploads/2024/02/preenchimento-de-bigode-chines-bh-416x277.jpg.webp" alt="Preenchimento de bigode chinês" /></div>
+          <div class="oferta-body">
+            <div class="oferta-nome">Preenchimento de bigode chinês</div>
+            
+            <div class="oferta-cta">
+              <a href="#agendar" class="btn-oferta">AGENDAR SESSÃO</a>
+              <div class="oferta-price" style="font-size:13px;color:rgba(255,255,255,.6)">Consulte valores</div>
+            </div>
+          </div>
+        </div>
+<div class="oferta-card reveal">
+          <div class="oferta-img"><img src="https://clinicaesteticabh.com/wp-content/uploads/2024/02/preenchimento-de-olheiras-bh-416x277.jpg.webp" alt="Preenchimento de olheiras" /></div>
+          <div class="oferta-body">
+            <div class="oferta-nome">Preenchimento de olheiras</div>
+            
+            <div class="oferta-cta">
+              <a href="#agendar" class="btn-oferta">AGENDAR SESSÃO</a>
+              <div class="oferta-price" style="font-size:13px;color:rgba(255,255,255,.6)">Consulte valores</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="slider-nav">
+      <button onclick="slideOfertas(-1)">&#8592;</button>
+      <button onclick="slideOfertas(1)">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- MELHOR PREÇO -->
+<section class="melhor-preco">
+  <div class="mp-inner">
+    <h2>O MELHOR PREÇO DO BRASIL</h2>
+    <p class="mp-sub">Encontrou Preço Menor? Nós Cobrimos!<br>Envie o orçamento ou anúncio e nós cobrimos a diferença!</p>
+    <div class="mp-badges">
+      <span class="mp-badge">✅ Equipamentos Originais e Certificados</span>
+      <span class="mp-badge">✅ Profissionais Especializados</span>
+      <span class="mp-badge">✅ Protocolos Oficiais e Seguros</span>
+      <span class="mp-badge">✅ Resultados Visíveis e Garantidos</span>
+    </div>
+    <a href="#agendar" class="btn-white">QUERO AGENDAR MINHA AVALIAÇÃO</a>
+  </div>
+</section>
+
+<!-- SOBRE NÓS -->
+<section class="sobre">
+  <div class="sec-inner">
+    <div class="sobre-grid reveal">
+      <div class="sobre-img">
+        <img src="https://clinicaesteticabh.com/wp-content/uploads/2024/02/intradermoterapia-bh-416x277.jpg.webp" alt="Nossa clínica" />
+      </div>
+      <div>
+        <span class="sobre-tag">SOBRE NÓS</span>
+        <h2 class="sobre-title">Acreditamos que beleza e autoestima caminham juntas</h2>
+        <p class="sobre-text">Nosso compromisso é com a satisfação e o bem-estar de cada cliente, utilizando tecnologia de ponta e um time de especialistas dedicados.</p>
+        <p class="sobre-text">Com atendimento especializado e estrutura moderna, levamos o melhor da estética avançada até você. Atendemos de domingo a domingo para sua total comodidade.</p>
+        <p class="sobre-medico">Equipe médica especializada e certificada.</p>
+        <br>
+        <a href="#agendar" class="btn-teal" style="margin-top:8px;">AGENDAR AVALIAÇÃO</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA — carousel animado -->
+<section class="galeria">
+  <div class="sec-inner">
+    <div class="sec-title"><h2>Nossa Clínica em Ação</h2><span class="gold-line"></span></div>
+  </div>
+  <div class="galeria-track-wrap">
+    <div class="galeria-track">
+      <!-- Set 1 -->
+      <div class="gal-item"><img src="https://clinicaesteticabh.com/wp-content/uploads/2024/03/clinica-de-estetica-bh.png" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://clinicaesteticabh.com/wp-content/uploads/2024/02/intradermoterapia-bh-416x277.jpg.webp" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <!-- Set 2 — cópia para loop -->
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1498842812179-c81beecf902c?w=900&h=700&fit=crop&auto=format&q=90" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&h=600&fit=crop&auto=format&q=80" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&h=600&fit=crop&auto=format&q=80" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&h=600&fit=crop&auto=format&q=80" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=600&fit=crop&auto=format&q=80" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&h=600&fit=crop&auto=format&q=80" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=800&h=600&fit=crop&auto=format&q=80" alt="Clínica" /></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&h=600&fit=crop&auto=format&q=80" alt="Clínica" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- GOOGLE STARS -->
+<section class="google-stars">
+  <div class="sec-inner">
+    <div class="stars-row">
+      <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      <span class="star">★</span><span class="star">★</span>
+    </div>
+    <h2 class="stars-title">Nota Máxima no Google e Reconhecida pelo ChatGPT</h2>
+    <p class="stars-sub">Mais de 100.000 clientes satisfeitos confirmam: a Clínica Estética em BH é a melhor clínica de estética de Belo Horizonte com o melhor custo-benefício do Brasil.</p>
+    <div class="stars-badges">
+      <span class="stars-badge">⭐ Nota 5.0 no Google</span>
+      <span class="stars-badge">🤖 Reconhecida pelo ChatGPT</span>
+      <span class="stars-badge">💯 +100.000 clientes</span>
+      <span class="stars-badge">🏆 Melhor preço do Brasil</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOLOS -->
+<section class="protocolos">
+  <div class="sec-inner">
+    <div class="prot-header">
+      <h2>Protocolos Exclusivos com Resultados Garantidos!</h2>
+      <p>Tecnologia de ponta, especialistas qualificados e um plano feito sob medida para você</p>
+    </div>
+    <div class="prot-grid">
+      <div class="prot-card reveal">
+        <div class="prot-icon">💆‍♀️</div>
+        <h3>Rejuvenescimento Facial</h3>
+        <p>Protocolo completo para renovação da pele, lifting e estímulo de colágeno com tecnologias laser de última geração.</p>
+      </div>
+      <div class="prot-card reveal">
+        <div class="prot-icon">💪</div>
+        <h3>Emagrecimento Corporal</h3>
+        <p>Combinação de tecnologias para redução de medidas, eliminação de gordura localizada e tonificação muscular.</p>
+      </div>
+      <div class="prot-card reveal">
+        <div class="prot-icon">✨</div>
+        <h3>Harmonização Facial</h3>
+        <p>Procedimentos estéticos que equilibram e harmonizam os traços do rosto para um resultado natural e elegante.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIDADES -->
+<section class="unidades">
+  <div class="sec-inner">
+    <div class="unid-layout">
+      <!-- Coluna esquerda: título + botão -->
+      <div class="unid-left reveal">
+        <h2>Sempre há uma Clínica Estética em BH próxima a você!</h2>
+        <p>Conheça a Clínica Estética em BH e agende sua avaliação gratuita</p>
+        <a href="#" class="btn-ver-todas">
+          VER TODAS UNIDADES
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Coluna direita: 2 cards -->
+      <div class="unid-grid">
+        <div class="unid-card reveal">
+          <div class="unid-map">
+            <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=600&h=450&fit=crop&auto=format&q=80" alt="Clínica Estética em BH" />
+          </div>
+          <div class="unid-body">
+            <div class="unid-head">
+              <div class="unid-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" height="58" viewBox="0 0 250 58" style="display:block;flex-shrink:0"><polygon points="29,3 51,29 29,55 7,29" fill="#B68578" opacity="0.18"/><polygon points="29,9 47,29 29,49 11,29" fill="none" stroke="#B68578" stroke-width="1.8"/><text x="29" y="34" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="800" font-size="13" fill="#B68578">E</text><line x1="63" y1="13" x2="63" y2="45" stroke="rgba(255,255,255,0.4)" stroke-width="1" opacity="0.35"/><text x="73" y="25" font-family="Montserrat,sans-serif" font-weight="400" font-size="8.5" letter-spacing="3.5" fill="rgba(255,255,255,0.6)">CLÍNICA</text><text x="73" y="42" font-family="Montserrat,sans-serif" font-weight="800" font-size="15" letter-spacing="0.3" fill="#ffffff">ESTÉTICA EM BH</text></svg>
+              </div>
+              <h3>Clínica Estética em BH</h3>
+            </div>
+            <div class="unid-info">
+              <div class="unid-row"><span class="ic">📍</span><span>R. Alberto Cintra, 210 - sala 513 - União, Belo Horizonte - MG</span></div>
+              <div class="unid-divider"></div>
+              <a href="https://wa.me/5531989435282?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." class="unid-row" style="text-decoration:none;">
+                <span class="ic">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                </span>
+                <span>(31) 98943-5282</span>
+              </a>
+              <div class="unid-divider"></div>
+              <a href="#" class="unid-row" style="text-decoration:none;">
+                <span class="ic">📸</span><span>@clnicaestticaembh</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="unid-card reveal">
+          <div class="unid-map">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=450&fit=crop&auto=format&q=80" alt="Clínica Estética em BH" />
+          </div>
+          <div class="unid-body">
+            <div class="unid-head">
+              <div class="unid-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" height="58" viewBox="0 0 250 58" style="display:block;flex-shrink:0"><polygon points="29,3 51,29 29,55 7,29" fill="#B68578" opacity="0.18"/><polygon points="29,9 47,29 29,49 11,29" fill="none" stroke="#B68578" stroke-width="1.8"/><text x="29" y="34" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="800" font-size="13" fill="#B68578">E</text><line x1="63" y1="13" x2="63" y2="45" stroke="rgba(255,255,255,0.4)" stroke-width="1" opacity="0.35"/><text x="73" y="25" font-family="Montserrat,sans-serif" font-weight="400" font-size="8.5" letter-spacing="3.5" fill="rgba(255,255,255,0.6)">CLÍNICA</text><text x="73" y="42" font-family="Montserrat,sans-serif" font-weight="800" font-size="15" letter-spacing="0.3" fill="#ffffff">ESTÉTICA EM BH</text></svg>
+              </div>
+              <h3>Clínica Estética em BH</h3>
+            </div>
+            <div class="unid-info">
+              <div class="unid-row"><span class="ic">📍</span><span>R. Alberto Cintra, 210 - sala 513 - União, Belo Horizonte - MG</span></div>
+              <div class="unid-divider"></div>
+              <a href="https://wa.me/5531989435282?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." class="unid-row" style="text-decoration:none;">
+                <span class="ic">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                </span>
+                <span>(31) 98943-5282</span>
+              </a>
+              <div class="unid-divider"></div>
+              <a href="#" class="unid-row" style="text-decoration:none;">
+                <span class="ic">📸</span><span>@clnicaestticaembh</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA AGENDAR -->
+<section class="cta-agendar" id="agendar">
+  <div class="cta-inner">
+    <span class="cta-badge">✨ Vagas Limitadas</span>
+    <h2>Agende Sua Avaliação e Comece Sua Transformação Hoje</h2>
+    <p>Tecnologia de ponta, especialistas qualificados e um plano feito sob medida para você. Reserve sua avaliação e dê o primeiro passo para transformar seu visual.</p>
+    <a href="https://wa.me/5531989435282?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." class="btn-cta">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#B68578"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      AGENDAR VIA WHATSAPP
+    </a>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog">
+  <div class="sec-inner">
+    <div class="sec-title">
+      <h2>Novidades Clínica Estética em BH</h2>
+      <span class="gold-line"></span>
+    </div>
+    <p style="text-align:center;font-size:13px;color:#777;margin-top:-28px;margin-bottom:36px;">Seu Guia de Estética Moderna</p>
+    <div class="blog-grid">
+      <a href="#" class="blog-card reveal">
+        <div class="blog-thumb">
+          <img src="https://clinicaesteticabh.com/wp-content/uploads/2024/02/intradermoterapia-bh-416x277.jpg.webp" alt="Endolaser" />
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta-top">
+            <span class="blog-cat"></span>
+            <div class="blog-date-box">
+              <div class="cal">🗓</div>
+              <div class="d">02/11/2026</div>
+            </div>
+          </div>
+          <h3>Endolaser: Tecnologia Avançada para Redução de Gordura e Retração da Pele</h3>
+          <div class="blog-author">
+            <div class="who"><span class="ic">👤</span><span>Clínica Estética em BH</span></div>
+            <div class="when"><span class="ic">🕐</span><span>10:53</span></div>
+          </div>
+          <span class="blog-btn">Leia mais</span>
+        </div>
+      </a>
+      <a href="#" class="blog-card reveal">
+        <div class="blog-thumb">
+          <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&h=600&fit=crop&auto=format&q=90" alt="Lavieen" />
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta-top">
+            <span class="blog-cat"></span>
+            <div class="blog-date-box">
+              <div class="cal">🗓</div>
+              <div class="d">02/11/2026</div>
+            </div>
+          </div>
+          <h3>Lavieen: Laser de Alta Precisão para Renovação e Rejuvenescimento da Pele</h3>
+          <div class="blog-author">
+            <div class="who"><span class="ic">👤</span><span>Clínica Estética em BH</span></div>
+            <div class="when"><span class="ic">🕐</span><span>10:52</span></div>
+          </div>
+          <span class="blog-btn">Leia mais</span>
+        </div>
+      </a>
+      <a href="#" class="blog-card reveal">
+        <div class="blog-thumb">
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=600&fit=crop&auto=format&q=90" alt="Ultraformer MPT" />
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta-top">
+            <span class="blog-cat"></span>
+            <div class="blog-date-box">
+              <div class="cal">🗓</div>
+              <div class="d">02/11/2026</div>
+            </div>
+          </div>
+          <h3>Ultraformer MPT: Lifting e Firmeza com Tecnologia de Ultrassom Micro e Macro Focado</h3>
+          <div class="blog-author">
+            <div class="who"><span class="ic">👤</span><span>Clínica Estética em BH</span></div>
+            <div class="when"><span class="ic">🕐</span><span>10:50</span></div>
+          </div>
+          <span class="blog-btn">Leia mais</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="foot-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" height="58" viewBox="0 0 250 58" style="display:block;flex-shrink:0"><polygon points="29,3 51,29 29,55 7,29" fill="#B68578" opacity="0.18"/><polygon points="29,9 47,29 29,49 11,29" fill="none" stroke="#B68578" stroke-width="1.8"/><text x="29" y="34" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="800" font-size="13" fill="#B68578">E</text><line x1="63" y1="13" x2="63" y2="45" stroke="rgba(255,255,255,0.4)" stroke-width="1" opacity="0.35"/><text x="73" y="25" font-family="Montserrat,sans-serif" font-weight="400" font-size="8.5" letter-spacing="3.5" fill="rgba(255,255,255,0.6)">CLÍNICA</text><text x="73" y="42" font-family="Montserrat,sans-serif" font-weight="800" font-size="15" letter-spacing="0.3" fill="#ffffff">ESTÉTICA EM BH</text></svg>
+      </div>
+      <p class="foot-desc">Referência em estética avançada com tecnologia de ponta, profissionais especializados e resultados que transformam. Atendemos de domingo a domingo.</p>
+      <div class="foot-social">
+        <a href="#" title="YouTube">▶</a>
+        <a href="#" title="Instagram">📷</a>
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="TikTok">♪</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Institucional</h4>
+      <ul>
+        <li><a href="#">Sobre nós</a></li>
+        <li><a href="#">Procedimentos</a></li>
+        <li><a href="#">Unidades</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Trabalhe Conosco</a></li>
+        <li><a href="#">Política de Privacidade</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Top 5 Mais Procurados</h4>
+      <ul>
+        <li><a href="#">Harmonização Facial</a></li>
+        <li><a href="#">Ultraformer MPT</a></li>
+        <li><a href="#">Laser CO₂</a></li>
+        <li><a href="#">Endolaser</a></li>
+        <li><a href="#">Protocolo Fotona</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Fale Conosco</h4>
+      <ul>
+        <li><a href="https://wa.me/5531989435282?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o.">WhatsApp Clínica Estética em BH</a></li>
+        <li><a href="https://wa.me/5531989435282?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o.">WhatsApp Clínica Estética em BH</a></li>
+        <li><a href="#">Agendar Avaliação</a></li>
+        <li><a href="mailto:#">E-mail</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <div class="foot-bottom">
+      <p>© 2024 Clínica Estética em BH – Todos os direitos reservados.</p>
+      <p>Atendimento Especializado · Dom a Dom</p>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/5531989435282?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." class="wa-btn" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  function slideOfertas(dir) {
+    const s = document.getElementById('ofertasSlider');
+    const w = (s.querySelector('.oferta-card')?.offsetWidth || 280) + 20;
+    s.scrollBy({ left: dir * w * 2, behavior: 'smooth' });
+  }
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  });
+</script>
+
+<script>
+(function(){
+  var track  = document.getElementById('hcTrack');
+  var dotsEl = document.getElementById('hcDots');
+  if(!track) return;
+  var slides = track.querySelectorAll('.hc-slide');
+  var cur = 0, total = slides.length, timer;
+  // cria dots
+  slides.forEach(function(_,i){
+    var d=document.createElement('button');
+    d.className='hc-dot'+(i===0?' on':'');
+    d.setAttribute('aria-label','Slide '+(i+1));
+    d.onclick=function(){go(i);};
+    dotsEl.appendChild(d);
+  });
+  function go(n){
+    cur=(n+total)%total;
+    track.style.transform='translateX(-'+cur*100+'%)';
+    dotsEl.querySelectorAll('.hc-dot').forEach(function(d,i){
+      d.classList.toggle('on',i===cur);
+    });
+    clearInterval(timer);
+    timer=setInterval(function(){go(cur+1);},5000);
+  }
+  window.hcMove=function(d){go(cur+d);};
+  timer=setInterval(function(){go(cur+1);},5000);
+})();
+</script>
+</body>
+</html>
